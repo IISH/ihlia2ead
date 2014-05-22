@@ -2,7 +2,7 @@
 
 include "_include/_misc.inc.php";
 
-echo date("Y-m-d H:i:s") . "<br><br>";
+echo date("Y-m-d H:i:s") . "\r\n\r\n";
 
 $targetdir = "target/";
 // template van 1 element
@@ -40,7 +40,7 @@ if (($handle = fopen($csvfile, "r")) !== FALSE) {
 				// dan moet deze als eerst bewaard worden
 				if ( $last_lcn != '' ) {
 					// SAVE LAST LCN
-					echo "<br>";
+					echo "\r\n";
 					save_lcn($targetdir, $last_lcn, $tot_lcn, $tot_c01);
 				}
 				// START NEW LCN
@@ -62,14 +62,14 @@ if (($handle = fopen($csvfile, "r")) !== FALSE) {
 		$row++;
 	}
 	// SAVE LAST LCN (die was nog niet afgesloten)
-	echo "<br>";
+	echo "\r\n";
 	save_lcn($targetdir, $last_lcn, $tot_lcn, $tot_c01);
 
 	// close bron file
 	fclose($handle);
 }
 
-echo "<br>Einde";
+echo "\r\nEinde";
 
 // bewaar file (lcn file, bevat dus 1 ead + 1 of meerdere c01)
 function save_lcn($targetdir, $last_lcn, $ead_template, $c01_template) {
@@ -94,7 +94,7 @@ function fill_lcn($ead_template, $data, $position) {
 	$tmp_bio = $data[$position["BIO"]];
 	if ( trim($tmp_bio) != '' ) {
 		$tmp_bio = convert2Xml($tmp_bio);
-		$tmp_bio = str_replace('{BIO}', $tmp_bio, "  <bioghist encodinganalog=\"545$a\"> <head>Biografie</head>  <p>{BIO}</p> </bioghist> ");
+		$tmp_bio = str_replace('{BIO}', $tmp_bio, "  <bioghist encodinganalog=\"545\$a\"> <head>Biografie</head>  <p>{BIO}</p> </bioghist> ");
 	}
 	$retval = str_replace('{BIO}', $tmp_bio, $retval);
 
@@ -223,9 +223,9 @@ function addUnitDateTag($value) {
 	// + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
 
 	if ( $value != $retval ) {
-		echo "+" . str_replace('<', '&lt;', $value) . "+<br>";
-		echo "+" . str_replace('<', '&lt;', $retval) . "+<br>";
-		echo "<br>";
+		echo "+" . $value . "+\r\n";
+		echo "+" . $retval . "+\r\n";
+		echo "\r\n";
 	}
 
 	return $retval;
